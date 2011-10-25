@@ -1,0 +1,20 @@
+= bitpix v1.0alpha
+
+Ruby-on-Rails Photo Sharing application
+
+== Installation
+
+  bundle install
+  rails server
+
+== Usage
+
+Pretty self explanatory
+
+== License
+
+Released under MIT. See LICENSE.rdoc
+
+== Copyright
+
+Copyright (c) 2011 Paul Panarese
