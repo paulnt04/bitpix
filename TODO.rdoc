@@ -1,0 +1,15 @@
+= Backend
+- carrierwave for uploads and thumbnail generation (store locally)
+- zip generation
+- devise/cancan for authentication/authorization
+
+= Frontend
+- ajax selection/deselection saved into user profile (highlight selection)
+- download selection or entire albums
+- view via photos or albums (tabs on nav bar to select view selection)
+- selection of photos survives across sessions until downloaded.
+- review selection before download
+- use Twitter bootstrap (modal for photo preview, popover for info)
+- have button to clear all selection (with confirmation)
+- have tags (for search)
+- use mongo for search (future)
