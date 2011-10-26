@@ -13,3 +13,22 @@
 - have button to clear all selection (with confirmation)
 - have tags (for search)
 - use mongo for search (future)
+
+= Models
+- Users
+  has_many :photos
+  has_many :albums
+- Photos (actual record)
+  belongs_to :user
+  belongs_to :album
+  has_many :tags => through => taggings
+  mount_uploader :file, FileUploader
+- FileUploader (file uploaded)
+- Albums (actual photo organizations)
+  belongs_to :user
+  has_many :photos
+  has_many :tags, :through => taggings
+- Tags (Events, Locations, Terms)
+  has_many :albums, :through => taggings
+  has_many :photos, :through => taggings
+
