@@ -2,6 +2,7 @@
 - carrierwave for uploads and thumbnail generation (store locally)
 - zip generation
 - devise/cancan for authentication/authorization
+- devise_ldap_authenticatable for ldap_authentication
 
 = Frontend
 - ajax selection/deselection saved into user profile (highlight selection)
@@ -18,17 +19,42 @@
 - Users
   has_many :photos
   has_many :albums
+  has_many :viewable_albums, :through => :permissions, :polymorphic => true
+  has_many :viewable_photos, :through => :permissions, :polymorphic => true
+  has_many :tags
+  columns: first_name,last_name,username,email,selection
+- Permissions
+  belongs_to :permissible, :polymorphic => true
+  belongs_to :users
+  columns: permissible_type,permissible_id,user_id
 - Photos (actual record)
   belongs_to :user
+  has_many :permissible_users, :through => :permissions, :as => :permissible, :class_name => "User"
   belongs_to :album
-  has_many :tags => through => taggings
+  has_many :tags => as => taggable
   mount_uploader :file, FileUploader
 - FileUploader (file uploaded)
 - Albums (actual photo organizations)
   belongs_to :user
+  has_many :permissible_users, :through => :permissions, :as => :permissible, :class_name => "User"
   has_many :photos
-  has_many :tags, :through => taggings
+  has_many :tags, :as => taggable
+- Collections (extra photo/album organization)
+  belongs_to :user
+  has_many :photos
+  has_many :albums
+  has_many :tags, :as => taggable
 - Tags (Events, Locations, Terms)
-  has_many :albums, :through => taggings
-  has_many :photos, :through => taggings
+  belongs_to :taggable, :polymorphic => true
+  columns: body,user_id,taggable_id,taggable_type
 
+= Authorizations
+can :manage, Album, :user_id => user.id
+can :manage, Photo, :user_id => user.id
+
+can :read, Album do |album|
+  album.permissable_users.include? user.id
+end
+can :read, Photo do |photo|
+  photo.permissable_users.include? user.id
+end

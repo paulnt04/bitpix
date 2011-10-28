@@ -21,7 +21,7 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'cancan'
 # Authenticate against OpenLDAP
-gem 'devise_ldap_authenticatable', :git => 'git://github.com/cschiewek/devise_ldap_athenticatable.git'
+gem 'devise_ldap_authenticatable', :git => 'git://github.com/cschiewek/devise_ldap_authenticatable.git'
 
 # Upload/Thumbnails
 # Thumbnails requires RMagick
